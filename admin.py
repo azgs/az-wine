@@ -26,5 +26,6 @@ class VineyardAdmin(admin.ModelAdmin):
             'tasting_room', 'winery']})
     ]
     inlines = [ServiceInline, ProductInline]
+    list_display = ('name', 'owner', 'county', 'zipcode')
 
 admin.site.register(Vineyard, VineyardAdmin)
