@@ -10,79 +10,89 @@
   </head>
   <body>
     {% block main %}
-    <div class="container">
-      <div class="page-header">
-        <h1>Arizona Wine Growers Contribute Form</h1>
+    <div class="description-container">
+      <div class="container">
+        <div class="page-header">
+          <h1>Arizona Wine Growers Contribute Form</h1>
+        </div>
+        <p class="lead">
+          Help us collect data about your wine business located in Arizona!
+          The Arizona Geological Survey has been tasked with building an
+          interactive web map application to support various parts of the
+          local agricultural industry in Arizona.  For the sake of data integrity
+          and long term sustainability of the program, we built this contribute
+          form so that industry professionals can create and maintain their own
+          data.
+        </p>
+        {% endblock %}
       </div>
-      <p class="lead">
-        Help us collect data about your wine business located in Arizona!
-        The Arizona Geological Survey has been tasked with building an
-        interactive web map application to support various parts of the
-        local agricultural industry in Arizona.  For the sake of data integrity
-        and long term sustainability of the program, we built this contribute
-        form so that industry professionals can create and maintain their own
-        data.
-      </p>
-      <div class="row">
-        <div class="col-sm-3 col-sm-offset-2">
-          <div id="register-form">
-            <form id="from-horizontal" method="post" enctype="multipart/form-data">
+    </div>
+    <div class="forms-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3 col-sm-offset-1">
+            <div id="register-form">
+              <h4>Register a new account here:</h4>
+              <form id="from-horizontal" name="RegisterForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="control-group">
+                  <label class="control-label" for="username">Username</label>
+                  <div class="controls">
+                    <input type="text" name="username" id="username" placeholder="Username">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="email">Email address</label>
+                  <div class="controls">
+                    <input type="text" name="email" id="email" placeholder="Email address">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="password">Password</label>
+                  <div class="controls">
+                    <input type="password" name="password" id="password" placeholder="Password">
+                  </div>
+                </div>
+                <br>
+                <div class="control-group">
+                  <div class="controls">
+                    <button type="submit" name="submit" value="Register" class="btn btn-primary btn-md btn-block">Register</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-sm-3 col-sm-offset-3">
+            <div id="login-form">
+              <h4>Login to an existing account here:</h4>
+              <form class="form-horizontal" name="LoginForm" method="post" enctype="multipart/form-data">
               {% csrf_token %}
+              {% if next %}
+                  <input type="hidden" name="next" value="{{ next }}" />
+              {% endif %}
               <div class="control-group">
-                <label class="control-label" for="username">Username</label>
+              <label class="control-label" for="username">Username</label>
                 <div class="controls">
-                  <input type="text" name="username" id="username" placeholder="Username">
+                    <input type="text" name="username" id="username" placeholder="Username">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="email">Email address</label>
+              <label class="control-label" for="password">Password</label>
                 <div class="controls">
-                  <input type="text" name="email" id="email" placeholder="Email address">
+                    <input type="password" name="password" id="password" placeholder="Password">
                 </div>
               </div>
+              <br>
               <div class="control-group">
-                <label class="control-label" for="password">Password</label>
-                <div class="controls">
-                  <input type="password" name="password" id="password" placeholder="Password">
-                </div>
+                  <div class="controls">
+                      <button type="submit" name="submit" value="Login" class="btn btn-primary btn-md btn-block btn-success">Login</button>
+                  </div>
               </div>
-              <div class="control-group">
-                <div class="controls">
-                  <button type="submit" name="submit" value="Register" class="btn">Register</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="col-sm-3 col-sm-offset-2">
-          <div id="login-form">
-            <form class="form-horizontal" name="LoginForm" method="post">
-            {% csrf_token %}
-            {% if next %}
-                <input type="hidden" name="next" value="{{ next }}" />
-            {% endif %}
-            <div class="control-group">
-            <label class="control-label" for="username">Username</label>
-              <div class="controls">
-                  <input type="text" name="username" id="username" placeholder="Username">
-              </div>
+              </form>
             </div>
-            <div class="control-group">
-            <label class="control-label" for="password">Password</label>
-              <div class="controls">
-                  <input type="password" name="password" id="password" placeholder="Password">
-              </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <button type="submit" name="submit" value="Login" class="btn">Login</button>
-                </div>
-            </div>
-            </form>
           </div>
         </div>
       </div>
-      {% endblock %}
     </div>
   </body>
 </html>
