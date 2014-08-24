@@ -8,6 +8,7 @@ from django.contrib.auth.models import User, Group
 def homepage(request):
     context = RequestContext(request)
     registered = False
+    user_exists = False
     username = ''
     password = ''
     email = ''
@@ -23,31 +24,41 @@ def homepage(request):
                 login(request, user)
                 return HttpResponseRedirect('/admin')
 
+        bad_credentials = True
+        return render_to_response('azwine/home.html', {
+            'registered': registered,
+            'bad_credentials': bad_credentials
+        }, context)
+
     if request.POST and request.POST.get('submit') == 'Register':
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        user = User.objects.create_user(username, email, password)
-        group = Group.objects.get(name='winegrowers')
-        user.is_staff = True
-        group.user_set.add(user)
-        #user.is_superuser = True
-        user.save()
-        """
-        user_form = UserForm(data=request.POST)
+        if username and email and password:
+            if User.objects.filter(username=username).count() > 0:
+                user_exists = True
+                return render_to_response('azwine/home.html', {
+                    'registered': registered,
+                    'user_exists': user_exists
+                }, context)
 
-        if user_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
+            user = User.objects.create_user(username, email, password)
+            group = Group.objects.get(name='winegrowers')
+            user.is_staff = True
+            group.user_set.add(user)
             user.save()
 
             registered = True
-        else:
-            print user_form.errors
-    else:
-        user_form = UserForm()
-    """
+            return render_to_response('azwine/home.html', {
+                'registered': registered,
+            }, context)
+
+        empty_fields = True
+        return render_to_response('azwine/home.html', {
+            'registered': registered,
+            'empty_fields': empty_fields
+        }, context)
     return render_to_response('azwine/home.html', {
         'registered': registered,
     }, context)

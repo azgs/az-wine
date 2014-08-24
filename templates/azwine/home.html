@@ -16,7 +16,7 @@
           <h1>Arizona Wine Growers Contribute Form</h1>
         </div>
         <p class="lead">
-          Help us collect data about your wine business located in Arizona!
+          Help us collect data about your wine business in Arizona!
           The Arizona Geological Survey has been tasked with building an
           interactive web map application to support various parts of the
           local agricultural industry in Arizona.  For the sake of data integrity
@@ -32,38 +32,53 @@
         <div class="row">
           <div class="col-sm-3 col-sm-offset-1">
             <div id="register-form">
-              <h4>Register a new account here:</h4>
-              <form id="from-horizontal" name="RegisterForm" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="control-group">
-                  <label class="control-label" for="username">Username</label>
-                  <div class="controls">
-                    <input type="text" name="username" id="username" placeholder="Username">
+              {% if user_exists %}
+                <h4>Sorry, that username is already in use.</h4>
+                <a class="btn btn-danger btn-md btn-block" href="/home">Try again</a>
+              {% elif empty_fields %}
+                <h4>Please fill out the registration form completely.</h4>
+                <a class="btn btn-danger btn-md btn-block" href="/home">Try again</a>
+              {% elif registered %}
+                <h4>Thanks for registering!</h4>
+              {% else %}
+                <h4>Register a new account here:</h4>
+                <form id="from-horizontal" name="RegisterForm" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="control-group">
+                    <label class="control-label" for="username">Username</label>
+                    <div class="controls">
+                      <input type="text" name="username" id="username" placeholder="Username">
+                    </div>
                   </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="email">Email address</label>
-                  <div class="controls">
-                    <input type="text" name="email" id="email" placeholder="Email address">
+                  <div class="control-group">
+                    <label class="control-label" for="email">Email address</label>
+                    <div class="controls">
+                      <input type="text" name="email" id="email" placeholder="Email address">
+                    </div>
                   </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="password">Password</label>
-                  <div class="controls">
-                    <input type="password" name="password" id="password" placeholder="Password">
+                  <div class="control-group">
+                    <label class="control-label" for="password">Password</label>
+                    <div class="controls">
+                      <input type="password" name="password" id="password" placeholder="Password">
+                    </div>
                   </div>
-                </div>
-                <br>
-                <div class="control-group">
-                  <div class="controls">
-                    <button type="submit" name="submit" value="Register" class="btn btn-primary btn-md btn-block">Register</button>
+                  <br>
+                  <div class="control-group">
+                    <div class="controls">
+                      <button type="submit" name="submit" value="Register" class="btn btn-primary btn-md btn-block">Register</button>
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              {% endif %}
             </div>
           </div>
           <div class="col-sm-3 col-sm-offset-3">
             <div id="login-form">
+              {% if bad_credentials %}
+                <h4>Sorry, there was an error processing your request.  Please try
+                again or try registering an account.</h4>
+                <a class="btn btn-danger btn-md btn-block" href="/home">Try again</a>
+              {% else %}
               <h4>Login to an existing account here:</h4>
               <form class="form-horizontal" name="LoginForm" method="post" enctype="multipart/form-data">
               {% csrf_token %}
@@ -84,11 +99,12 @@
               </div>
               <br>
               <div class="control-group">
-                  <div class="controls">
-                      <button type="submit" name="submit" value="Login" class="btn btn-primary btn-md btn-block btn-success">Login</button>
-                  </div>
+                <div class="controls">
+                    <button type="submit" name="submit" value="Login" class="btn btn-primary btn-md btn-block btn-success">Login</button>
+                </div>
               </div>
               </form>
+              {% endif %}
             </div>
           </div>
         </div>
