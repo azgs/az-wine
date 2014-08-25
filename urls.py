@@ -9,5 +9,5 @@ urlpatterns = patterns('azwine.views',
 
 urlpatterns += patterns('',
     url(r'^admin/logout/$', 'django.contrib.auth.views.logout',
-        {'next_page': '/home'})
+        {'next_page': '/'})
 )
