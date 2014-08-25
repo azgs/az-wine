@@ -28,19 +28,4 @@ class VineyardAdmin(admin.ModelAdmin):
     inlines = [ServiceInline, ProductInline]
     list_display = ('name', 'owner', 'county', 'zipcode')
 
-    def has_add_permission(self, request, obj=None):
-        return True
-
-    def has_change_permission(self, request, obj=None):
-        return True
-
-    def has_delete_permission(self, request, obj=None):
-        return True
-
-    def get_queryset(self, request):
-        qs = super(VineyardAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(author=request.user)
-
 admin.site.register(Vineyard, VineyardAdmin)

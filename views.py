@@ -1,9 +1,10 @@
+import json
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
-from forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User, Group
+from models import Vineyard
 
 def homepage(request):
     context = RequestContext(request)
@@ -12,7 +13,6 @@ def homepage(request):
     username = ''
     password = ''
     email = ''
-
 
     if request.POST and request.POST.get('submit') == 'Login':
         username = request.POST.get('username')
@@ -59,6 +59,14 @@ def homepage(request):
             'registered': registered,
             'empty_fields': empty_fields
         }, context)
+
     return render_to_response('azwine/home.html', {
         'registered': registered,
     }, context)
+
+def get_all_vineyards(extension='json'):
+    from django.core import serializers
+
+    models = Vineyard.objects.all()
+    data = [m.vineyards_serialized() for m in models]
+    return HttpResponse(json.dumps(data), mimetype='application/json')

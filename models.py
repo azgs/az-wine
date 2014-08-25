@@ -1,8 +1,15 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from binascii import b2a_hex
+from os import urandom
+
+def build_uid():
+    return unicode('vineyard' + b2a_hex(urandom(5)))
 
 class Vineyard(models.Model):
+    vineyard_id = models.CharField(max_length=20, editable=False,
+        default=build_uid)
     name = models.CharField(max_length=500, blank=True)
     owner = models.CharField(max_length=500, blank=True)
     street = models.CharField(max_length=1000, blank=True)
@@ -37,6 +44,81 @@ class Vineyard(models.Model):
     image = models.ImageField(upload_to=settings.MEDIA_ROOT,
         height_field=None, width_field=None, max_length=1000,
         blank=True, null=True)
+
+    def vineyards_serialized(self, model=None):
+        if model is None:
+            model = self
+        json = {
+            'name': model.name,
+            'owner': model.owner,
+            'address' : {
+                'street': model.street,
+                'county': model.county,
+                'zipcode': model.zipcode,
+            },
+            'email': model.email,
+            'phone': model.phone,
+            'description': model.description,
+            'established': model.established,
+            'website': model.website,
+            'geo': {
+                'lat': model.latitude,
+                'lng': model.longitude,
+            },
+            'hours': {
+                'sunday': {'open': model.sunday_open,
+                           'close': model.sunday_open},
+                'monday': {'open': model.monday_open,
+                           'close': model.monday_open},
+                'tuesday': {'open': model.tuesday_open,
+                           'close': model.tuesday_open},
+                'wednesday': {'open': model.wednesday_open,
+                           'close': model.wednesday_open},
+                'thursday': {'open': model.thursday_open,
+                           'close': model.thursday_open},
+                'friday': {'open': model.friday_open,
+                           'close': model.friday_open},
+                'saturday': {'open': model.saturday_open,
+                           'close': model.saturday_open},
+            },
+            'type': {
+                'vineyard': model.vineyard,
+                'tasting_room': model.tasting_room,
+                'winery': model.winery
+            },
+#            'image': model.image,
+            'services': model.get_services(model.pk),
+            'products': model.get_products(model.pk),
+        }
+        return json
+
+    def get_services(self, id):
+        try:
+            service_list = []
+            services = Service.objects.filter(product_id=id)
+            for s in services:
+                select = {
+                    'service': s.service,
+                    'description': s.description
+                }
+                service_list.append(select)
+            return service_list
+        except:
+            return 'undefined'
+
+    def get_products(self, id):
+        try:
+            product_list = []
+            products = Product.objects.filter(product_id=id)
+            for p in products:
+                select = {
+                    'product': p.product,
+                    'description': p.description
+                }
+                product_list.append(select)
+            return product_list
+        except:
+            return 'undefined'
 
 class Service(models.Model):
     vineyard_fk = models.ForeignKey(Vineyard)
