@@ -65,8 +65,6 @@ def homepage(request):
     }, context)
 
 def get_all_vineyards(extension='json'):
-    from django.core import serializers
-
     models = Vineyard.objects.all()
     data = [m.vineyards_serialized() for m in models]
     return HttpResponse(json.dumps(data), mimetype='application/json')
