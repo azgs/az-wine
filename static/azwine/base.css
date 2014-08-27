@@ -12,6 +12,10 @@ html, body {
     color: #f4f379;
 }
 
+.description-container a {
+    color: #d5eef6;
+}
+
 .description-container .container {
     max-width: 750px;
     height: 100%;

@@ -8,6 +8,7 @@ def build_uid():
     return unicode('vineyard' + b2a_hex(urandom(5)))
 
 class Vineyard(models.Model):
+    user = models.ForeignKey(User)
     vineyard_id = models.CharField(max_length=20, editable=False,
         default=build_uid)
     name = models.CharField(max_length=500, blank=True)

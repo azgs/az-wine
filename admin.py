@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Vineyard, Service, Product, UserProfile
+from models import Vineyard, Service, Product
 
 class ServiceInline(admin.TabularInline):
     model = Service
@@ -10,7 +10,29 @@ class ProductInline(admin.TabularInline):
     extra = 1
     max_num = 3
 
-class VineyardAdmin(admin.ModelAdmin):
+class FilterUserAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.save()
+
+    def queryset(self, request):
+        user = request.user
+        if user.is_superuser:
+            qs = super(FilterUserAdmin, self).queryset(request)
+            return qs.all()
+        else:
+            qs = super(FilterUserAdmin, self).queryset(request)
+            return qs.filter(user=request.user)
+
+    def has_change_permission(self, request, obj=None):
+        if not obj:
+            return True
+        if obj.user.is_superuser:
+            pass
+        else:
+            return obj.user
+
+class VineyardAdmin(FilterUserAdmin):
     fieldsets = [
         (None, {'fields': ['name', 'owner', 'description',
             'established', 'website', 'image']}),
