@@ -17,28 +17,32 @@ class Vineyard(models.Model):
     county = models.CharField(max_length=100, blank=True)
     zipcode = models.IntegerField(blank=True, null=True)
     email = models.EmailField(max_length=200, blank=True)
-    phone = models.CharField(max_length=12, blank=True)
+    phone = models.CharField(max_length=12, blank=True,
+        help_text='Please use this format: 123-456-7890')
     description = models.TextField(max_length=350, blank=True)
-    established = models.DateField(blank=True, null=True)
+    established = models.DateField(blank=True, null=True,
+        help_text='Please use this format: YYYY-MM-DD')
     website = models.URLField(max_length=300, blank=True)
     latitude = models.DecimalField(max_digits=10,
-        decimal_places=7, blank=True, null=True)
+        decimal_places=7, blank=True, null=True,
+        help_text='Please use this format: 123.4567890')
     longitude = models.DecimalField(max_digits=10,
-        decimal_places=7, blank=True, null=True)
-    sunday_open = models.TimeField(blank=True, null=True)
-    sunday_close = models.TimeField(blank=True, null=True)
-    monday_open = models.TimeField(blank=True, null=True)
-    monday_close = models.TimeField(blank=True, null=True)
-    tuesday_open = models.TimeField(blank=True, null=True)
-    tuesday_close = models.TimeField(blank=True, null=True)
-    wednesday_open = models.TimeField(blank=True, null=True)
-    wednesday_close = models.TimeField(blank=True, null=True)
-    thursday_open = models.TimeField(blank=True, null=True)
-    thursday_close = models.TimeField(blank=True, null=True)
-    friday_open = models.TimeField(blank=True, null=True)
-    friday_close = models.TimeField(blank=True, null=True)
-    saturday_open = models.TimeField(blank=True, null=True)
-    saturday_close = models.TimeField(blank=True, null=True)
+        decimal_places=7, blank=True, null=True,
+        help_text='Please use this format: 123.4567890')
+    sunday = models.CharField(blank=True, null=True, max_length=15,
+        help_text='Please use this format: 08:00AM-05:00PM')
+    monday = models.CharField(blank=True, null=True, max_length=15,
+        help_text='Please use this format: 08:00AM-05:00PM')
+    tuesday = models.CharField(blank=True, null=True, max_length=15,
+        help_text='Please use this format: 08:00AM-05:00PM')
+    wednesday = models.CharField(blank=True, null=True, max_length=15,
+        help_text='Please use this format: 08:00AM-05:00PM')
+    thursday = models.CharField(blank=True, null=True, max_length=15,
+        help_text='Please use this format: 08:00AM-05:00PM')
+    friday = models.CharField(blank=True, null=True, max_length=15,
+        help_text='Please use this format: 08:00AM-05:00PM')
+    saturday = models.CharField(blank=True, null=True, max_length=15,
+        help_text='Please use this format: 08:00AM-05:00PM')
     vineyard = models.BooleanField(default=False)
     tasting_room = models.BooleanField(default=False)
     winery = models.BooleanField(default=False)

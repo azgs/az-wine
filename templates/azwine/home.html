@@ -40,6 +40,9 @@
               {% elif empty_fields %}
                 <h4>Please fill out the registration form completely.</h4>
                 <a class="btn btn-danger btn-md btn-block" href="/">Try again</a>
+              {% elif bad_username %}
+                <h4>Username can only contain alphanumeric characters.</h4>
+                <a class="btn btn-danger btn-md btn-block" href="/">Try again</a>
               {% elif registered %}
                 <h4>Thanks for registering!</h4>
               {% else %}

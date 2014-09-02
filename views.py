@@ -1,4 +1,5 @@
 import json
+import re
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
@@ -36,6 +37,14 @@ def homepage(request):
         password = request.POST.get('password')
 
         if username and email and password:
+
+            if not username.isalnum():
+                bad_username = True
+                return render_to_response('azwine/home.html', {
+                    'registered': registered,
+                    'bad_username': bad_username
+                }, context)
+
             if User.objects.filter(username=username).count() > 0:
                 user_exists = True
                 return render_to_response('azwine/home.html', {

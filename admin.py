@@ -28,7 +28,7 @@ class FilterUserAdmin(admin.ModelAdmin):
         if not obj:
             return True
         if obj.user.is_superuser:
-            pass
+            return True
         else:
             return obj.user
 
@@ -39,11 +39,8 @@ class VineyardAdmin(FilterUserAdmin):
         ('Contact', {'fields': ['street', 'county', 'zipcode',
             'email', 'phone']}),
         ('GeoLocation', {'fields': ['latitude', 'longitude']}),
-        ('Hours of Operation', {'fields': ['sunday_open', 'sunday_close',
-            'monday_open', 'monday_close', 'tuesday_open', 'tuesday_close',
-            'wednesday_open', 'wednesday_close', 'thursday_open',
-            'thursday_close', 'friday_open', 'friday_close', 'saturday_open',
-            'saturday_close']}),
+        ('Hours of Operation', {'fields': ['sunday', 'monday', 'tuesday',
+            'wednesday', 'thursday', 'friday', 'saturday']}),
         ('Type of business (select all that apply)', {'fields': ['vineyard',
             'tasting_room', 'winery']})
     ]
