@@ -24,10 +24,10 @@ class Vineyard(models.Model):
         help_text='Please use this format: YYYY-MM-DD')
     website = models.URLField(max_length=300, blank=True)
     latitude = models.DecimalField(max_digits=10,
-        decimal_places=7, blank=True, null=True,
+        decimal_places=7, blank=False, null=True,
         help_text='Please use this format: 123.4567890')
     longitude = models.DecimalField(max_digits=10,
-        decimal_places=7, blank=True, null=True,
+        decimal_places=7, blank=False, null=True,
         help_text='Please use this format: 123.4567890')
     sunday = models.CharField(blank=True, null=True, max_length=15,
         help_text='Please use this format: 08:00AM-05:00PM')
@@ -64,27 +64,20 @@ class Vineyard(models.Model):
             'email': model.email,
             'phone': model.phone,
             'description': model.description,
-            'established': model.established,
+            'established': str(model.established),
             'website': model.website,
             'geo': {
-                'lat': model.latitude,
-                'lng': model.longitude,
+                'lat': str(model.latitude),
+                'lng': str(model.longitude),
             },
             'hours': {
-                'sunday': {'open': model.sunday_open,
-                           'close': model.sunday_open},
-                'monday': {'open': model.monday_open,
-                           'close': model.monday_open},
-                'tuesday': {'open': model.tuesday_open,
-                           'close': model.tuesday_open},
-                'wednesday': {'open': model.wednesday_open,
-                           'close': model.wednesday_open},
-                'thursday': {'open': model.thursday_open,
-                           'close': model.thursday_open},
-                'friday': {'open': model.friday_open,
-                           'close': model.friday_open},
-                'saturday': {'open': model.saturday_open,
-                           'close': model.saturday_open},
+                'sunday': model.sunday,
+                'monday': model.monday,
+                'tuesday': model.tuesday,
+                'wednesday': model.wednesday,
+                'thursday': model.thursday,
+                'friday': model.friday,
+                'saturday': model.saturday,
             },
             'type': {
                 'vineyard': model.vineyard,

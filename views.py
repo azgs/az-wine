@@ -76,4 +76,4 @@ def homepage(request):
 def get_all_vineyards(extension='json'):
     models = Vineyard.objects.all()
     data = [m.vineyards_serialized() for m in models]
-    return HttpResponse(json.dumps(data), mimetype='application/json')
+    return HttpResponse(json.dumps(data))
