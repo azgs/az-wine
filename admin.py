@@ -15,14 +15,21 @@ class FilterUserAdmin(admin.ModelAdmin):
         obj.user = request.user
         obj.save()
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         user = request.user
+        method = getattr(super(FilterUserAdmin, self), 'get_queryset', super(FilterUserAdmin, self).queryset)
+        qs = method(request)
         if user.is_superuser:
-            qs = super(FilterUserAdmin, self).queryset(request)
             return qs.all()
         else:
-            qs = super(FilterUserAdmin, self).queryset(request)
             return qs.filter(user=request.user)
+
+    # Allow queryset method as fallback for Django versions < 1.6
+    # for versions >= 1.6 this is taken care of by Django itself
+    # and triggers a warning message automatically.
+    import django
+    if django.VERSION < (1, 6):
+        queryset = get_queryset
 
     def has_change_permission(self, request, obj=None):
         if not obj:
