@@ -47,7 +47,8 @@ Create admin user
 ### Running for Development
 
 ```
-> python manage.py migrate
+> python manage.py makemigrations    [create migrations for database changes]
+> python manage.py migrate           [apply changes to the database]
 > python manage.py runserver
 ```
 
