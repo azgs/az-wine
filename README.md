@@ -27,7 +27,11 @@ Modify **azwineprj\azwineprj\settings.py**:
 Modify **azwineprj\azwineprj\ursl.py**:
  - Add `url(r'^', include('az-wine.urls')),`
 
-Create admin user
+Build the database:
+
+`> python manage.py migrate`
+
+Create admin user:
 
 `> python manage.py createsuperuser`
 
