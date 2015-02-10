@@ -49,4 +49,4 @@ Site at [http://localhost:8000/](http://localhost:8000/) and admin site at [http
 
 ### Geojson
 
-This application creates a geojson object from the database. It is served out at [http://localhost:8000/api/rest/vineyards](http://localhost:8000/api/rest/vineyards)
+This application creates a geojson object from the database. It is served out at [http://localhost:8000/api/rest/vineyards](http://localhost:8000/api/rest/vineyards).
