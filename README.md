@@ -23,6 +23,8 @@ The Arizona Geological Survey is building an interactive web map to support the 
 Modify **azwineprj\azwineprj\settings.py**:
  - Add `'az-wine'` to `INSTALLED_APPS`
  - `TIME_ZONE = 'America/Phoenix'`
+ - `MEDIA_ROOT = os.path.join(BASE_DIR, "media")`
+ - `MEDIA_URL = '/media/`
 
 Modify **azwineprj\azwineprj\ursl.py**:
  - Add `url(r'^', include('az-wine.urls')),`
