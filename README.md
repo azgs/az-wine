@@ -46,3 +46,7 @@ Create admin user:
 ```
 
 Site at [http://localhost:8000/](http://localhost:8000/) and admin site at [http://localhost:8000/admin](http://localhost:8000/admin)
+
+### Geojson
+
+This application creates a geojson object from the database. It is served out at [http://localhost:8000/api/rest/vineyards](http://localhost:8000/api/rest/vineyards)
