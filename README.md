@@ -23,8 +23,11 @@ The Arizona Geological Survey is building an interactive web map to support the 
 Modify **azwineprj\azwineprj\settings.py**:
  - Add `'az-wine'` to `INSTALLED_APPS`
  - `TIME_ZONE = 'America/Phoenix'`
+ - `TIME_INPUT_FORMATS = ('%H:%M',)`
+ - `STATIC_ROOT = os.path.join(BASE_DIR, "static")`
  - `MEDIA_ROOT = os.path.join(BASE_DIR, "media")`
  - `MEDIA_URL = '/media/`
+ - `TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'az-wine/templates')]`
 
 Modify **azwineprj\azwineprj\ursl.py**:
  - Add `url(r'^', include('az-wine.urls')),`
@@ -50,3 +53,10 @@ Site at [http://localhost:8000/](http://localhost:8000/) and admin site at [http
 ### Geojson
 
 This application creates a geojson object from the database. It is served out at [http://localhost:8000/api/rest/vineyards](http://localhost:8000/api/rest/vineyards).
+
+### Running for Production
+
+Modify **azwineprj\azwineprj\settings.py**:
+- `DEBUG = False`
+- `TEMPLATE_DEBUG = False`
+- `ALLOWED_HOSTS = []`                [put host here]

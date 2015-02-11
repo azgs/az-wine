@@ -46,8 +46,20 @@ class VineyardAdmin(FilterUserAdmin):
         ('Contact', {'fields': ['street', 'county', 'zipcode',
             'email', 'phone']}),
         ('GeoLocation', {'fields': ['latitude', 'longitude']}),
-        ('Hours of Operation', {'fields': ['sunday', 'monday', 'tuesday',
-            'wednesday', 'thursday', 'friday', 'saturday']}),
+        ('Sunday Hours of Operation', {'fields': [
+            'sun_open_time', 'sun_close_time', 'sun_call']}),
+        ('Monday Hours of Operation', {'fields': [
+            'mon_open_time', 'mon_close_time', 'mon_call']}),
+        ('Tuesday Hours of Operation', {'fields': [
+            'tue_open_time', 'tue_close_time', 'tue_call']}),
+        ('Wednesday Hours of Operation', {'fields': [
+            'wed_open_time', 'wed_close_time', 'wed_call']}),
+        ('Thursday Hours of Operation', {'fields': [
+            'thur_open_time', 'thur_close_time', 'thur_call']}),
+        ('Friday Hours of Operation', {'fields': [
+            'fri_open_time', 'fri_close_time', 'fri_call']}),
+        ('Saturday Hours of Operation', {'fields': [
+            'sat_open_time', 'sat_close_time', 'sat_call']}),
         ('Type of business (select all that apply)', {'fields': ['vineyard',
             'tasting_room', 'winery']})
     ]

@@ -9,40 +9,40 @@ def build_uid():
 
 class Vineyard(models.Model):
     user = models.ForeignKey(User)
-    vineyard_id = models.CharField(max_length=20, editable=False,
-        default=build_uid)
-    name = models.CharField(max_length=500, blank=True)
-    owner = models.CharField(max_length=500, blank=True)
-    street = models.CharField(max_length=1000, blank=True)
-    county = models.CharField(max_length=100, blank=True)
-    zipcode = models.IntegerField(blank=True, null=True)
-    email = models.EmailField(max_length=200, blank=True)
-    phone = models.CharField(max_length=12, blank=True,
-        help_text='Please use this format: 123-456-7890')
-    description = models.TextField(max_length=350, blank=True)
-    established = models.DateField(blank=True, null=True,
-        help_text='Please use this format: YYYY-MM-DD')
-    website = models.URLField(max_length=300, blank=True)
-    latitude = models.DecimalField(max_digits=10,
-        decimal_places=7, blank=False, null=True,
-        help_text='Please use this format: 123.4567890')
-    longitude = models.DecimalField(max_digits=10,
-        decimal_places=7, blank=False, null=True,
-        help_text='Please use this format: 123.4567890')
-    sunday = models.CharField(blank=True, null=True, max_length=15,
-        help_text='Please use this format: 08:00AM-05:00PM')
-    monday = models.CharField(blank=True, null=True, max_length=15,
-        help_text='Please use this format: 08:00AM-05:00PM')
-    tuesday = models.CharField(blank=True, null=True, max_length=15,
-        help_text='Please use this format: 08:00AM-05:00PM')
-    wednesday = models.CharField(blank=True, null=True, max_length=15,
-        help_text='Please use this format: 08:00AM-05:00PM')
-    thursday = models.CharField(blank=True, null=True, max_length=15,
-        help_text='Please use this format: 08:00AM-05:00PM')
-    friday = models.CharField(blank=True, null=True, max_length=15,
-        help_text='Please use this format: 08:00AM-05:00PM')
-    saturday = models.CharField(blank=True, null=True, max_length=15,
-        help_text='Please use this format: 08:00AM-05:00PM')
+    vineyard_id = models.CharField(max_length=20, editable=False, default=build_uid)
+    name = models.CharField(max_length=64)
+    owner = models.CharField(max_length=64, blank=True)
+    street = models.CharField(max_length=64, blank=True)
+    county = models.CharField(max_length=64, blank=True)
+    zipcode = models.CharField(max_length=10, blank=True, null=True)
+    email = models.EmailField(max_length=64, blank=True)
+    phone = models.CharField(max_length=12, blank=True, help_text='Please use this format: 123-456-7890')
+    description = models.TextField(max_length=500, blank=True)
+    established = models.DateField(blank=True, null=True, help_text='Please use this format: YYYY-MM-DD')
+    website = models.URLField(max_length=256, blank=True)
+    latitude = models.DecimalField(max_digits=10, decimal_places=7, blank=False, null=True, help_text='Please use this format: 123.4567890')
+    longitude = models.DecimalField(max_digits=10, decimal_places=7, blank=False, null=True, help_text='Please use this format: 123.4567890')
+    sun_open_time = models.TimeField('open', null=True, blank=True, help_text='Use 24 hour format.')
+    sun_close_time = models.TimeField('close', null=True, blank=True, help_text='Use 24 hour format.')
+    sun_call = models.BooleanField('call/by appointment', default=False)
+    mon_open_time = models.TimeField('open', null=True, blank=True, help_text='Use 24 hour format.')
+    mon_close_time = models.TimeField('close', null=True, blank=True, help_text='Use 24 hour format.')
+    mon_call = models.BooleanField('call/by appointment', default=False)
+    tue_open_time = models.TimeField('open', null=True, blank=True, help_text='Use 24 hour format.')
+    tue_close_time = models.TimeField('close', null=True, blank=True, help_text='Use 24 hour format.')
+    tue_call = models.BooleanField('call/by appointment', default=False)
+    wed_open_time = models.TimeField('open', null=True, blank=True, help_text='Use 24 hour format.')
+    wed_close_time = models.TimeField('close', null=True, blank=True, help_text='Use 24 hour format.')
+    wed_call = models.BooleanField('call/by appointment', default=False)
+    thur_open_time = models.TimeField('open', null=True, blank=True, help_text='Use 24 hour format.')
+    thur_close_time = models.TimeField('close', null=True, blank=True, help_text='Use 24 hour format.')
+    thur_call = models.BooleanField('call/by appointment', default=False)
+    fri_open_time = models.TimeField('open', null=True, blank=True, help_text='Use 24 hour format.')
+    fri_close_time = models.TimeField('close', null=True, blank=True, help_text='Use 24 hour format.')
+    fri_call = models.BooleanField('call/by appointment', default=False)
+    sat_open_time = models.TimeField('open', null=True, blank=True, help_text='Use 24 hour format.')
+    sat_close_time = models.TimeField('close', null=True, blank=True, help_text='Use 24 hour format.')
+    sat_call = models.BooleanField('call/by appointment', default=False)
     vineyard = models.BooleanField(default=False)
     tasting_room = models.BooleanField(default=False)
     winery = models.BooleanField(default=False)
@@ -70,15 +70,15 @@ class Vineyard(models.Model):
                 'lat': str(model.latitude),
                 'lng': str(model.longitude),
             },
-            'hours': {
-                'sunday': model.sunday,
-                'monday': model.monday,
-                'tuesday': model.tuesday,
-                'wednesday': model.wednesday,
-                'thursday': model.thursday,
-                'friday': model.friday,
-                'saturday': model.saturday,
-            },
+           # 'hours': {
+           #     'sunday': model.sunday,
+           #     'monday': model.monday,
+           #     'tuesday': model.tuesday,
+           #     'wednesday': model.wednesday,
+          #      'thursday': model.thursday,
+          #      'friday': model.friday,
+          #      'saturday': model.saturday,
+          #  },
             'type': {
                 'vineyard': model.vineyard,
                 'tasting_room': model.tasting_room,
