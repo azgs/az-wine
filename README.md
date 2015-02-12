@@ -17,20 +17,20 @@ The Arizona Geological Survey is building an interactive web map to support the 
 ```
 > django-admin.py startproject azwineprj
 > cd azwineprj
-> git clone https://github.com/azgs/az-wine.git
+> git clone https://github.com/azgs/azwine.git
 ```
 
 Modify **azwineprj\azwineprj\settings.py**:
- - Add `'az-wine'` to `INSTALLED_APPS`
+ - Add `'azwine'` to `INSTALLED_APPS`
  - `TIME_ZONE = 'America/Phoenix'`
  - `TIME_INPUT_FORMATS = ('%H:%M',)`
  - `STATIC_ROOT = os.path.join(BASE_DIR, "static")`
  - `MEDIA_ROOT = os.path.join(BASE_DIR, "media")`
  - `MEDIA_URL = '/media/'`
- - `TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'az-wine/templates')]`
+ - `TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'azwine/templates')]`
 
 Modify **azwineprj\azwineprj\ursl.py**:
- - Add `url(r'^', include('az-wine.urls')),`
+ - Add `url(r'^', include('azwine.urls')),`
 
 Build the database:
 
