@@ -14,6 +14,7 @@ def homepage(request):
     username = ''
     password = ''
     email = ''
+    token = ''
 
     if request.POST and request.POST.get('submit') == 'Login':
         username = request.POST.get('username')
@@ -26,12 +27,17 @@ def homepage(request):
                 return HttpResponseRedirect('/admin')
 
         bad_credentials = True
-        return render_to_response('az-wine/home.html', {
+        return render_to_response('azwine/home.html', {
             'registered': registered,
             'bad_credentials': bad_credentials
         }, context)
 
     if request.POST and request.POST.get('submit') == 'Register':
+        if not request.POST.get('token') == "w1ne!":
+            return render_to_response('azwine/home.html', {
+                'bad_token': True,
+            }, context)
+        
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -40,14 +46,14 @@ def homepage(request):
 
             if not username.isalnum():
                 bad_username = True
-                return render_to_response('az-wine/home.html', {
+                return render_to_response('azwine/home.html', {
                     'registered': registered,
                     'bad_username': bad_username
                 }, context)
 
             if User.objects.filter(username=username).count() > 0:
                 user_exists = True
-                return render_to_response('a-zwine/home.html', {
+                return render_to_response('azwine/home.html', {
                     'registered': registered,
                     'user_exists': user_exists
                 }, context)
@@ -59,17 +65,17 @@ def homepage(request):
             user.save()
 
             registered = True
-            return render_to_response('az-wine/home.html', {
+            return render_to_response('azwine/home.html', {
                 'registered': registered,
             }, context)
 
         empty_fields = True
-        return render_to_response('az-wine/home.html', {
+        return render_to_response('azwine/home.html', {
             'registered': registered,
             'empty_fields': empty_fields
         }, context)
 
-    return render_to_response('az-wine/home.html', {
+    return render_to_response('azwine/home.html', {
         'registered': registered,
     }, context)
 

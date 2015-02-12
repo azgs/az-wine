@@ -34,7 +34,12 @@
         <div class="row">
           <div class="col-sm-3 col-sm-offset-1">
             <div id="register-form">
-              {% if user_exists %}
+              {% if bad_token %}
+                <h4>Your security token was incorrect.
+                Contact <a href="mailto:Rowena.davis@azgs.az.gov">
+                Rowena Davis</a> at AZGS to get the security token.</h4>
+                <a class="btn btn-danger btn-md btn-block" href="/">Try again</a>
+              {% elif user_exists %}
                 <h4>Sorry, that username is already in use.</h4>
                 <a class="btn btn-danger btn-md btn-block" href="/">Try again</a>
               {% elif empty_fields %}
@@ -65,6 +70,12 @@
                     <label class="control-label" for="password">Password</label>
                     <div class="controls">
                       <input type="password" name="password" id="password" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="token">Security Token</label>
+                    <div class="controls">
+                      <input type="text" name="token" id="token" placeholder="Security Token from AZGS">
                     </div>
                   </div>
                   <br>

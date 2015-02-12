@@ -50,6 +50,16 @@ Create admin user:
 
 Site at [http://localhost:8000/](http://localhost:8000/) and admin site at [http://localhost:8000/admin](http://localhost:8000/admin)
 
+### Create user group
+
+- Log in to the admin site with the superuser account.
+- Add a new group called `winegrowers`
+- Give this the group the following permissions:
+  - All under azwine | product
+  - All under azwine | service
+  - All under azwine | vineyard
+  - All under azwine | user profile
+
 ### Geojson
 
 This application creates a geojson object from the database. It is served out at [http://localhost:8000/api/rest/vineyards](http://localhost:8000/api/rest/vineyards).
