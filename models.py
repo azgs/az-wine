@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from binascii import b2a_hex
 from os import urandom
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 def build_uid():
     return unicode('vineyard' + b2a_hex(urandom(5)))
@@ -20,8 +21,8 @@ class Vineyard(models.Model):
     description = models.TextField(max_length=500, blank=True)
     established = models.DateField(blank=True, null=True, help_text='Please use this format: YYYY-MM-DD')
     website = models.URLField(max_length=256, blank=True)
-    latitude = models.DecimalField(max_digits=10, decimal_places=7, blank=False, null=True, help_text='Please use this format: 123.4567890')
-    longitude = models.DecimalField(max_digits=10, decimal_places=7, blank=False, null=True, help_text='Please use this format: 123.4567890')
+    latitude = models.DecimalField(validators=[MinValueValidator(31.3322), MaxValueValidator(37.0009)], max_digits=10, decimal_places=7, blank=False, null=True, help_text='For Arizona locations this value needs to be between 31.3322 and 37.0009.')
+    longitude = models.DecimalField(validators=[MinValueValidator(-114.8387), MaxValueValidator(-109.0463)], max_digits=10, decimal_places=7, blank=False, null=True, help_text='For Arizona locations this value needs to be between -114.8387 and -109.0463.')
     sun_open_time = models.TimeField('open', null=True, blank=True, help_text='Use 24 hour format.')
     sun_close_time = models.TimeField('close', null=True, blank=True, help_text='Use 24 hour format.')
     sun_call = models.BooleanField('call/by appointment', default=False)
