@@ -60,6 +60,10 @@ Site at [http://localhost:8000/](http://localhost:8000/) and admin site at [http
   - All under azwine | vineyard
   - All under azwine | user profile
 
+### Basic Insecure Security
+
+For a new user to set up an account they must enter the token `w1ne!` in the registration form.
+
 ### Geojson
 
 This application creates a geojson object from the database. It is served out at [http://localhost:8000/api/rest/vineyards](http://localhost:8000/api/rest/vineyards).
