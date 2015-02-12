@@ -54,40 +54,71 @@ class Vineyard(models.Model):
     def vineyards_serialized(self, model=None):
         if model is None:
             model = self
+            
         json = {
-            'name': model.name,
-            'owner': model.owner,
-            'address' : {
-                'street': model.street,
-                'county': model.county,
-                'zipcode': model.zipcode,
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [float(model.longitude), float(model.latitude)]
             },
-            'email': model.email,
-            'phone': model.phone,
-            'description': model.description,
-            'established': str(model.established),
-            'website': model.website,
-            'geo': {
-                'lat': str(model.latitude),
-                'lng': str(model.longitude),
-            },
-           # 'hours': {
-           #     'sunday': model.sunday,
-           #     'monday': model.monday,
-           #     'tuesday': model.tuesday,
-           #     'wednesday': model.wednesday,
-          #      'thursday': model.thursday,
-          #      'friday': model.friday,
-          #      'saturday': model.saturday,
-          #  },
-            'type': {
-                'vineyard': model.vineyard,
-                'tasting_room': model.tasting_room,
-                'winery': model.winery
-            },
-#            'image': model.image,
-            'services': model.get_services(model.pk),
-            'products': model.get_products(model.pk),
+            "properties": {
+                "name": model.name,
+                "owner": model.owner,
+                "address" :{
+                    "street": model.street,
+                    "county": model.county,
+                    "zipcode": model.zipcode,
+                },
+                "email": model.email,
+                "phone": model.phone,
+                "description": model.description,
+                "established": str(model.established),
+                "website": model.website,
+                "services": model.get_services(model.pk),
+                "products": model.get_products(model.pk),
+                "hours":{
+                    "sunday": {
+                        "open": str(model.sun_open_time),
+                        "close": str(model.sun_close_time),
+                        "call": model.sun_call,
+                    },
+                    "monday": {
+                        "open": str(model.mon_open_time),
+                        "close": str(model.mon_close_time),
+                        "call": model.mon_call,
+                    },
+                    "tuesday": {
+                        "open": str(model.tue_open_time),
+                        "close": str(model.tue_close_time),
+                        "call": model.tue_call,
+                    },
+                    "wednesday": {
+                        "open": str(model.wed_open_time),
+                        "close": str(model.wed_close_time),
+                        "call": model.wed_call,
+                    },
+                    "thursday": {
+                        "open": str(model.thur_open_time),
+                        "close": str(model.thur_close_time),
+                        "call": model.thur_call,
+                    },
+                    "friday": {
+                        "open": str(model.fri_open_time),
+                        "close": str(model.fri_close_time),
+                        "call": model.fri_call
+                    },
+                    "saturday": {
+                        "open": str(model.sat_open_time),
+                        "close": str(model.sat_close_time),
+                        "call": model.sat_call,
+                    },
+                },
+                "type": {
+                    "vineyard": model.vineyard,
+                    "tasting_room": model.tasting_room,
+                    "winery": model.winery
+                }
+            }
         }
         return json
 
