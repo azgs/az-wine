@@ -54,7 +54,8 @@ class Vineyard(models.Model):
     def vineyards_serialized(self, model=None):
         if model is None:
             model = self
-            
+        print "model.pk", model.pk
+        print "model.id", model.id  
         json = {
             "type": "Feature",
             "geometry": {
@@ -75,8 +76,8 @@ class Vineyard(models.Model):
                 "description": model.description,
                 "established": str(model.established),
                 "website": model.website,
-                "services": model.get_services(model.pk),
-                "products": model.get_products(model.pk),
+                "services": model.get_services(model.id),
+                "products": model.get_products(model.id),
                 "hours":{
                     "sunday": {
                         "open": str(model.sun_open_time),
@@ -123,10 +124,10 @@ class Vineyard(models.Model):
         }
         return json
 
-    def get_services(self, id):
+    def get_services(self, vid):
         try:
             service_list = []
-            services = Service.objects.filter(product_id=id)
+            services = Service.objects.filter(vineyard_fk=vid)
             for s in services:
                 select = {
                     'service': s.service,
@@ -137,10 +138,10 @@ class Vineyard(models.Model):
         except:
             return 'undefined'
 
-    def get_products(self, id):
+    def get_products(self, vid):
         try:
             product_list = []
-            products = Product.objects.filter(product_id=id)
+            products = Product.objects.filter(vineyard_fk=vid)
             for p in products:
                 select = {
                     'product': p.product,
