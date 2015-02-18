@@ -15,7 +15,7 @@ class Vineyard(models.Model):
     owner = models.CharField(max_length=64, blank=True)
     street = models.CharField(max_length=64, blank=True)
     county = models.CharField(max_length=64, blank=True)
-    zipcode = models.CharField(max_length=10, blank=True, null=True)
+    zipcode = models.CharField(max_length=10, blank=True)
     email = models.EmailField(max_length=64, blank=True)
     phone = models.CharField(max_length=12, blank=True, help_text='Please use this format: 123-456-7890')
     description = models.TextField(max_length=1000, blank=True)
