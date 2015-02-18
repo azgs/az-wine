@@ -18,7 +18,7 @@ class Vineyard(models.Model):
     zipcode = models.CharField(max_length=10, blank=True, null=True)
     email = models.EmailField(max_length=64, blank=True)
     phone = models.CharField(max_length=12, blank=True, help_text='Please use this format: 123-456-7890')
-    description = models.TextField(max_length=500, blank=True)
+    description = models.TextField(max_length=1000, blank=True)
     established = models.DateField(blank=True, null=True, help_text='Please use this format: YYYY-MM-DD')
     website = models.URLField(max_length=256, blank=True)
     latitude = models.DecimalField(validators=[MinValueValidator(31.3322), MaxValueValidator(37.0009)], max_digits=10, decimal_places=7, blank=False, null=True, help_text='For Arizona locations this value needs to be between 31.3322 and 37.0009.')
@@ -152,13 +152,13 @@ class Vineyard(models.Model):
 
 class Service(models.Model):
     vineyard_fk = models.ForeignKey(Vineyard)
-    service = models.CharField(max_length=500, blank=True)
-    description= models.TextField(blank=True)
+    service = models.CharField(max_length=100, blank=True)
+    description= models.TextField(max_length=500, blank=True)
 
 class Product(models.Model):
     vineyard_fk = models.ForeignKey(Vineyard)
     product = models.CharField(max_length=100, blank=True)
-    description = models.TextField(max_length=100, blank=True)
+    description = models.TextField(max_length=350, blank=True)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
