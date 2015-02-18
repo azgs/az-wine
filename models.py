@@ -63,6 +63,7 @@ class Vineyard(models.Model):
             },
             "properties": {
                 "name": model.name,
+                "uid":  model.id,
                 "owner": model.owner,
                 "address" :{
                     "street": model.street,
