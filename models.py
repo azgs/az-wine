@@ -54,8 +54,7 @@ class Vineyard(models.Model):
     def vineyards_serialized(self, model=None):
         if model is None:
             model = self
-        print "model.pk", model.pk
-        print "model.id", model.id  
+
         json = {
             "type": "Feature",
             "geometry": {
