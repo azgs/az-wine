@@ -118,7 +118,8 @@ class Vineyard(models.Model):
                     "vineyard": model.vineyard,
                     "tasting_room": model.tasting_room,
                     "winery": model.winery
-                }
+                },
+                "image": str(model.image)
             }
         }
         return json
