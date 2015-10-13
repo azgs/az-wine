@@ -19,7 +19,7 @@ class Vineyard(models.Model):
     email = models.EmailField(max_length=64, blank=True)
     phone = models.CharField(max_length=12, blank=True, help_text='Please use this format: 123-456-7890')
     description = models.TextField(max_length=2000, blank=True)
-    established = models.DateField(blank=True, null=True, help_text='Please use this format: YYYY-MM-DD')
+    established = models.CharField(max_length=64, blank=True, null=True, help_text='Please enter the date established.')
     website = models.URLField(max_length=256, blank=True)
     latitude = models.DecimalField(validators=[MinValueValidator(31.3322), MaxValueValidator(37.0009)], max_digits=10, decimal_places=7, blank=False, null=True, help_text='For Arizona locations this value needs to be between 31.3322 and 37.0009.')
     longitude = models.DecimalField(validators=[MinValueValidator(-114.8387), MaxValueValidator(-109.0463)], max_digits=10, decimal_places=7, blank=False, null=True, help_text='For Arizona locations this value needs to be between -114.8387 and -109.0463.')
