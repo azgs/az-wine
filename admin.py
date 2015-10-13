@@ -64,6 +64,6 @@ class VineyardAdmin(FilterUserAdmin):
             'tasting_room', 'winery']})
     ]
     inlines = [ServiceInline, ProductInline]
-    list_display = ('name', 'owner', 'county', 'zipcode', 'established')
+    list_display = ('name', 'owner', 'county', 'zipcode', 'established', 'vineyard', 'tasting_room', 'winery')
 
 admin.site.register(Vineyard, VineyardAdmin)
