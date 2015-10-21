@@ -18,7 +18,9 @@ The Arizona Geological Survey is building an interactive web map to support the 
 > django-admin.py startproject azwineprj
 > cd azwineprj
 > git clone https://github.com/azgs/azwine.git
+> pip install django-hijack
 ```
+*Django-hijack allows superusers to login as and work as other users. See docs [here](https://github.com/arteria/django-hijack)*
 
 Modify **azwineprj\azwineprj\settings.py**:
  - Add `'azwine'` to `INSTALLED_APPS`
@@ -29,8 +31,26 @@ Modify **azwineprj\azwineprj\settings.py**:
  - `MEDIA_URL = '/media/'`
  - `TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'azwine/templates')]`
 
+Also add hijack to INSTALLED_APPS:
+
+```
+INSTALLED_APPS = (
+    ...,
+    'hijack',
+    'compat',
+)
+```
+
+And add hijack redirects:
+
+```
+HIJACK_LOGIN_REDIRECT_URL = "/admin/"  # where you want to be redirected to, after hijacking the user.
+REVERSE_HIJACK_LOGIN_REDIRECT_URL = "/admin/"  # where you want to be redirected to, after releasing the user.
+```
+
 Modify **azwineprj\azwineprj\ursl.py**:
  - Add `url(r'^', include('azwine.urls')),`
+ - And `url(r'^hijack/', include('hijack.urls'))`
 
 Build the database:
 
@@ -74,3 +94,6 @@ Modify **azwineprj\azwineprj\settings.py**:
 - `DEBUG = False`
 - `TEMPLATE_DEBUG = False`
 - `ALLOWED_HOSTS = []`                [put host here]
+
+### Notes on Hijaking
+Hkjacking can only be as a superuser account and is entered from the buttons on the  Users page. To release a hijack go to the URL http://winedb.arizonaexperience.org/hijack/release-hijack/.
